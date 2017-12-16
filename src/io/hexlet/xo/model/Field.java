@@ -1,7 +1,7 @@
 package io.hexlet.xo.model;
 
 
-import io.hexlet.xo.exceptions.InvalidPointException;
+import io.hexlet.xo.model.exceptions.InvalidPointException;
 
 import java.awt.*;
 
