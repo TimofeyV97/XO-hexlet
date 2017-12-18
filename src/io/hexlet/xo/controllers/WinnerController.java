@@ -1,7 +1,7 @@
 package io.hexlet.xo.controllers;
 
 
-import io.hexlet.xo.exceptions.InvalidPointException;
+import io.hexlet.xo.model.exceptions.InvalidPointException;
 import io.hexlet.xo.model.Field;
 import io.hexlet.xo.model.Figure;
 
@@ -18,7 +18,7 @@ public class WinnerController {
             }
 
             for (int i = 0; i < field.getSize(); i++) {
-                if (check(field, new Point(i, 0), p -> new Point(p.x + 1, p.y))) {
+                if (check(field, new Point(0, i), p -> new Point(p.x + 1, p.y))) {
                     return field.getFigure(new Point(0, i));
                 }
             }
@@ -30,7 +30,7 @@ public class WinnerController {
             if (check(field, new Point(0, 2), p -> new Point(p.x + 1, p.y - 1))) {
                 return field.getFigure(new Point(1, 1));
             }
-        } catch(InvalidPointException e){
+        } catch(final InvalidPointException e){
             e.printStackTrace();
         }
         return null;
@@ -42,13 +42,14 @@ public class WinnerController {
         final Point nextPoint = pointGenerator.next(currentPoint);
         try {
             currentFigure = field.getFigure(currentPoint);
-            nextFigure = field.getFigure(nextPoint);
-        } catch (InvalidPointException e) {
-            return true;
-        }
 
-        if (currentFigure == null) {
-            return false;
+            if (currentFigure == null) {
+                return false;
+            }
+
+            nextFigure = field.getFigure(nextPoint);
+        } catch (final InvalidPointException e) {
+            return true;
         }
 
         if (currentFigure != nextFigure) {
